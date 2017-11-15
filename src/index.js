@@ -32,6 +32,7 @@ class App extends React.Component {
   				<ul className="todo-list">
             <List
               db={db}
+              prefix=""
               renderRow={({ key, value }) =>
                 <li className={value.completed ? "completed" : undefined} key={key}>
                   <div className="view">
