@@ -64,7 +64,16 @@ class App extends React.Component {
   				</ul>
   			</section>
   			<footer className="footer">
-          <span className="todo-count"><strong><Count db={db} prefix="" /></strong> item left</span>
+          <span className="todo-count">
+            <strong>
+              <Count
+                db={db}
+                prefix=""
+                filter={({ value }) => !value.completed}
+              />
+            </strong> 
+            {' '}item left
+            </span>
   				<ul className="filters">
   					<li>
   						<a className="selected" href="#/">All</a>
