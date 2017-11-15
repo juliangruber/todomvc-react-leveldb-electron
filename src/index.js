@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import level from 'level'
 import {List} from 'react-level-list'
+import {Count} from 'react-level-count'
 
 const db = window.db = level('/tmp/todomvc-react-leveldb-electron', {
   valueEncoding: 'json'
@@ -63,7 +64,7 @@ class App extends React.Component {
   				</ul>
   			</section>
   			<footer className="footer">
-  				<span className="todo-count"><strong>0</strong> item left</span>
+          <span className="todo-count"><strong><Count db={db} prefix="" /></strong> item left</span>
   				<ul className="filters">
   					<li>
   						<a className="selected" href="#/">All</a>

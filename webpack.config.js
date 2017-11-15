@@ -11,6 +11,7 @@ module.exports = {
         test: /\.js$/,
         include: [
           `${__dirname}/node_modules/react-level-list`,
+          `${__dirname}/node_modules/react-level-count`,
           `${__dirname}/src`
         ],
         loader: 'babel-loader',
