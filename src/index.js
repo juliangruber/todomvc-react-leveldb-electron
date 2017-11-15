@@ -9,20 +9,20 @@ const db = window.db = level('/tmp/todomvc-react-leveldb-electron', {
 
 class App extends React.Component {
   onSubmit (ev) {
-    const data = new FormData(ev.target)
     ev.preventDefault()
     db.put(`${Date.now()}${Math.random()}`, {
       completed: false,
-      text: data.get("text")
+      text: this.refs.add.value
     })
+    this.refs.add.value = ''
   }
   render () {
     return (
       <section>
   			<header className="header">
   				<h1>todos</h1>
-          <form onSubmit={this.onSubmit}>
-    				<input className="new-todo" placeholder="What needs to be done?" name="text" autoFocus />
+          <form onSubmit={ev => this.onSubmit(ev)}>
+    				<input className="new-todo" placeholder="What needs to be done?" ref="add" autoFocus />
             <input type="submit" hidden />
           </form>
   			</header>
