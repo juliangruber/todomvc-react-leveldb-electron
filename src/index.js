@@ -11,7 +11,9 @@ const db = window.db = level('/tmp/todomvc-react-leveldb-electron', {
 class App extends React.Component {
   onSubmit (ev) {
     ev.preventDefault()
-    db.put(`${Date.now()}${Math.random()}`, {
+    const id = `${Date.now()}${Math.random()}`
+    db.put(`todo${id}`, {
+      id,
       completed: false,
       text: this.refs.add.value
     })
@@ -23,15 +25,23 @@ class App extends React.Component {
   }
   
   onToggle (key, value) {
-    value.completed = !value.completed
-    db.put(key, value)
+    if (!value.completed) {
+      value.completed = true
+      db.put(`completed${value.id}`, value)
+      db.del(key, value)
+    } else {
+      value.completed = false
+      db.put(`todo${value.id}`, value)
+      db.del(key, value)
+    }
   }
   
   onClearCompleted () {
-    db.createReadStream()
-    .on('data', ({ key, value }) => {
-      if (value.completed) db.del(key)
+    db.createReadStream({
+      start: 'completed',
+      end: 'completed~'
     })
+    .on('data', ({ key }) => db.del(key))
   }
   
   render () {
@@ -64,7 +74,7 @@ class App extends React.Component {
   				</ul>
   			</section>
   			<footer className="footer">
-          <span className="todo-count"><strong><Count db={db} prefix="" /></strong> item left</span>
+          <span className="todo-count"><strong><Count db={db} prefix="todo" /></strong> item left</span>
   				<ul className="filters">
   					<li>
   						<a className="selected" href="#/">All</a>
