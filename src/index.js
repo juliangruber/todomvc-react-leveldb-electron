@@ -26,6 +26,13 @@ class App extends React.Component {
     db.put(key, value)
   }
   
+  onClearCompleted () {
+    db.createReadStream()
+    .on('data', ({ key, value }) => {
+      if (value.completed) db.del(key)
+    })
+  }
+  
   render () {
     return (
       <section>
@@ -68,7 +75,7 @@ class App extends React.Component {
   						<a href="#/completed">Completed</a>
   					</li>
   				</ul>
-  				<button className="clear-completed">Clear completed</button>
+  				<button className="clear-completed" onClick={() => this.onClearCompleted()}>Clear completed</button>
   			</footer>
       </section>
     )
