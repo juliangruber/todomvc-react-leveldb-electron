@@ -21,6 +21,11 @@ class App extends React.Component {
     db.del(key)
   }
   
+  onToggle (key, value) {
+    value.completed = !value.completed
+    db.put(key, value)
+  }
+  
   render () {
     return (
       <section>
@@ -41,7 +46,7 @@ class App extends React.Component {
               renderRow={({ key, value }) =>
                 <li className={value.completed ? "completed" : undefined} key={key}>
                   <div className="view">
-      							<input className="toggle" type="checkbox" defaultChecked={value.completed} />
+      							<input className="toggle" type="checkbox" defaultChecked={value.completed} onChange={() => this.onToggle(key, value)}/>
       							<label>{value.text}</label>
       							<button className="destroy" onClick={() => this.onDelete(key)}></button>
                   </div>
