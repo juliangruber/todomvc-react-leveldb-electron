@@ -16,6 +16,11 @@ class App extends React.Component {
     })
     this.refs.add.value = ''
   }
+  
+  onDelete (key) {
+    db.del(key)
+  }
+  
   render () {
     return (
       <section>
@@ -38,7 +43,7 @@ class App extends React.Component {
                   <div className="view">
       							<input className="toggle" type="checkbox" defaultChecked={value.completed} />
       							<label>{value.text}</label>
-      							<button className="destroy"></button>
+      							<button className="destroy" onClick={() => this.onDelete(key)}></button>
                   </div>
                   <input className="edit" defaultValue="TODO?" />
                 </li>
