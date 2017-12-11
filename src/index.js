@@ -89,9 +89,9 @@ class App extends React.Component {
               renderRow={({ key, value }) =>
                 <li className={value.completed ? "completed" : undefined} key={key}>
                   <div className="view">
-                  <input className="toggle" type="checkbox" defaultChecked={value.completed} onChange={() => this.onToggle(key, value)}/>
-                  <label>{value.text}</label>
-                  <button className="destroy" onClick={() => this.onDelete(key)}></button>
+                    <input className="toggle" type="checkbox" checked={value.completed} onChange={() => this.onToggle(key, value)}/>
+                    <label>{value.text}</label>
+                    <button className="destroy" onClick={() => this.onDelete(key)}></button>
                   </div>
                   <input className="edit" defaultValue="TODO?" />
                 </li>
