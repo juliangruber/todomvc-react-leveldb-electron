@@ -105,9 +105,11 @@ class App extends React.Component {
             <Count
               db={db}
               filter={({ value }) => !value.completed}
-              render={count => count === 1
-                ? <span><strong>{count}</strong> item</span>
-                : <span><strong>{count}</strong> items</span>}
+              render={count =>
+                <span>
+                  <strong>{count}</strong>
+                  {count === 1 ? ' item' : ' items'}
+                </span>}
             />
             {' '}left
           </span>
