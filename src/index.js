@@ -71,8 +71,10 @@ class App extends React.Component {
     this.setState({ edit: key })
   }
 
-  onStopEdit () {
-    this.setState({ edit: null })
+  onStopEdit ({ key, value, text }) {
+    db.put(key, Object.assign(value, { text }), () => {
+      this.setState({ edit: null })
+    })
   }
 
   render () {
@@ -115,7 +117,7 @@ class App extends React.Component {
                   <input
                     className="edit"
                     defaultValue={value.text}
-                    onBlur={() => this.onStopEdit()}
+                    onBlur={ev => this.onStopEdit({ key, value, text: ev.target.value })}
                     ref={input => input && input.focus()}
                   />
                 </li>
