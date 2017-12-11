@@ -9,6 +9,24 @@ const db = window.db = level('/tmp/todomvc-react-leveldb-electron', {
 })
 
 class App extends React.Component {
+  constructor () {
+    super()
+
+    this.state = { filter: this.showAll }
+  }
+
+  showAll () {
+    return true
+  }
+
+  showActive ({ value }) {
+    return !value.completed
+  }
+
+  showCompleted ({ value }) {
+    return value.completed
+  }
+
   onSubmit (ev) {
     ev.preventDefault()
     db.put(`${Date.now()}${Math.random()}`, {
@@ -37,56 +55,68 @@ class App extends React.Component {
   render () {
     return (
       <section>
-  			<header className="header">
-  				<h1>todos</h1>
+        <header className="header">
+          <h1>todos</h1>
           <form onSubmit={ev => this.onSubmit(ev)}>
-    				<input className="new-todo" placeholder="What needs to be done?" ref="add" autoFocus />
+            <input className="new-todo" placeholder="What needs to be done?" ref="add" autoFocus />
             <input type="submit" hidden />
           </form>
-  			</header>
-  			<section className="main">
-  				<input id="toggle-all" className="toggle-all" type="checkbox" />
-  				<label htmlFor="toggle-all">Mark all as complete</label>
-  				<ul className="todo-list">
+        </header>
+        <section className="main">
+          <input id="toggle-all" className="toggle-all" type="checkbox" />
+          <label htmlFor="toggle-all">Mark all as complete</label>
+          <ul className="todo-list">
             <List
+              key={this.state.filter.toString()}
               db={db}
-              prefix=""
               renderRow={({ key, value }) =>
                 <li className={value.completed ? "completed" : undefined} key={key}>
                   <div className="view">
-      							<input className="toggle" type="checkbox" defaultChecked={value.completed} onChange={() => this.onToggle(key, value)}/>
-      							<label>{value.text}</label>
-      							<button className="destroy" onClick={() => this.onDelete(key)}></button>
+                  <input className="toggle" type="checkbox" defaultChecked={value.completed} onChange={() => this.onToggle(key, value)}/>
+                  <label>{value.text}</label>
+                  <button className="destroy" onClick={() => this.onDelete(key)}></button>
                   </div>
                   <input className="edit" defaultValue="TODO?" />
                 </li>
-              } />
-  				</ul>
-  			</section>
-  			<footer className="footer">
+              }
+              filter={this.state.filter.bind(this)}
+            />
+          </ul>
+        </section>
+        <footer className="footer">
           <span className="todo-count">
-              <Count
-                db={db}
-                filter={({ value }) => !value.completed}
-                render={count => count === 1
-                  ? <span><strong>{count}</strong> item</span>
-                  : <span><strong>{count}</strong> items</span>}
-              />
+            <Count
+              db={db}
+              filter={({ value }) => !value.completed}
+              render={count => count === 1
+                ? <span><strong>{count}</strong> item</span>
+                : <span><strong>{count}</strong> items</span>}
+            />
             {' '}left
-            </span>
-  				<ul className="filters">
-  					<li>
-  						<a className="selected" href="#/">All</a>
-  					</li>
-  					<li>
-  						<a href="#/active">Active</a>
-  					</li>
-  					<li>
-  						<a href="#/completed">Completed</a>
-  					</li>
-  				</ul>
-  				<button className="clear-completed" onClick={() => this.onClearCompleted()}>Clear completed</button>
-  			</footer>
+          </span>
+          <ul className="filters">
+            <li>
+              <a
+                className="selected"
+                href="#/"
+                onClick={() => this.setState({ filter: this.showAll })}
+              >All</a>
+            </li>
+            <li>
+              <a
+                href="#/active"
+                onClick={() => this.setState({ filter: this.showActive })}
+              >Active</a>
+            </li>
+            <li>
+              <a
+                href="#/completed"
+                onClick={() => this.setState({ filter: this.showCompleted })}
+              >Completed</a>
+            </li>
+          </ul>
+          <button className="clear-completed" onClick={() => this.onClearCompleted()}>Clear completed</button>
+        </footer>
       </section>
     )
   }
