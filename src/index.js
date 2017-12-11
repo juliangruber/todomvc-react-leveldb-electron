@@ -17,23 +17,23 @@ class App extends React.Component {
     })
     this.refs.add.value = ''
   }
-  
+
   onDelete (key) {
     db.del(key)
   }
-  
+
   onToggle (key, value) {
     value.completed = !value.completed
     db.put(key, value)
   }
-  
+
   onClearCompleted () {
     db.createReadStream()
     .on('data', ({ key, value }) => {
       if (value.completed) db.del(key)
     })
   }
-  
+
   render () {
     return (
       <section>
