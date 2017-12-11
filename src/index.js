@@ -97,19 +97,21 @@ class App extends React.Component {
           <ul className="filters">
             <li>
               <a
-                className="selected"
+                className={this.state.filter === this.showAll ? 'selected' : undefined}
                 href="#/"
                 onClick={() => this.setState({ filter: this.showAll })}
               >All</a>
             </li>
             <li>
               <a
+                className={this.state.filter === this.showActive ? 'selected' : undefined}
                 href="#/active"
                 onClick={() => this.setState({ filter: this.showActive })}
               >Active</a>
             </li>
             <li>
               <a
+                className={this.state.filter === this.showCompleted ? 'selected' : undefined}
                 href="#/completed"
                 onClick={() => this.setState({ filter: this.showCompleted })}
               >Completed</a>
