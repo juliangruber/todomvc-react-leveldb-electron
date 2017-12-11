@@ -1,14 +1,12 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import level from 'level'
 import {List} from 'react-level-list'
 import {Count} from 'react-level-count'
 
-const db = window.db = level('/tmp/todomvc-react-leveldb-electron', {
-  valueEncoding: 'json'
-})
+const db = level('db', { valueEncoding: 'json' })
 
-class App extends React.Component {
+class App extends Component {
   constructor () {
     super()
 
