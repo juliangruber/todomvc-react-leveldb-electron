@@ -12,7 +12,10 @@ class App extends React.Component {
   constructor () {
     super()
 
-    this.state = { filter: this.showAll }
+    this.state = {
+      filter: this.showAll,
+      edit: null
+    }
   }
 
   showAll () {
@@ -64,6 +67,14 @@ class App extends React.Component {
     })
   }
 
+  onStartEdit (key) {
+    this.setState({ edit: key })
+  }
+
+  onStopEdit () {
+    this.setState({ edit: null })
+  }
+
   render () {
     return (
       <section>
@@ -87,13 +98,26 @@ class App extends React.Component {
               key={this.state.filter.toString()}
               db={db}
               renderRow={({ key, value }) =>
-                <li className={value.completed ? "completed" : undefined} key={key}>
+                <li
+                  className={value.completed
+                    ? "completed"
+                    : this.state.edit === key
+                      ? 'editing'
+                      : undefined}
+                  key={key}
+                  onDoubleClick={() => this.onStartEdit(key)}
+                >
                   <div className="view">
                     <input className="toggle" type="checkbox" checked={value.completed} onChange={() => this.onToggle(key, value)}/>
                     <label>{value.text}</label>
                     <button className="destroy" onClick={() => this.onDelete(key)}></button>
                   </div>
-                  <input className="edit" defaultValue="TODO?" />
+                  <input
+                    className="edit"
+                    defaultValue={value.text}
+                    onBlur={() => this.onStopEdit()}
+                    ref={input => input && input.focus()}
+                  />
                 </li>
               }
               filter={this.state.filter.bind(this)}
