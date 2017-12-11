@@ -134,7 +134,13 @@ class App extends React.Component {
               >Completed</a>
             </li>
           </ul>
-          <button className="clear-completed" onClick={() => this.onClearCompleted()}>Clear completed</button>
+          <Count
+            db={db}
+            filter={({ value }) => value.completed}
+            render={count => count > 0
+              ? <button className="clear-completed" onClick={() => this.onClearCompleted()}>Clear completed</button>
+              : null}
+          />
         </footer>
       </section>
     )
