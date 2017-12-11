@@ -6,7 +6,9 @@ Implementation of the popular [TodoMVC](http://todomvc.com/) project using the t
 - [LevelDB](http://leveldb.org/)
 - [Electron](https://electronjs.org/)
 
-[Check out the source!](src/App.js)
+This is a very short implementation - possibly the shortest - consisting of only 177 lines of JavaScript.
+
+[Check out the source!](src/index.js)
 
 ## Getting started
 
