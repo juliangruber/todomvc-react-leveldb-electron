@@ -10,6 +10,10 @@ This is a very short implementation - possibly the shortest - consisting of only
 
 [Check out the source!](src/index.js)
 
+## Screenshot
+
+![screenshot](screenshot.png)
+
 ## Getting started
 
 ```bash
