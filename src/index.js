@@ -65,14 +65,14 @@ class App extends React.Component {
   			</section>
   			<footer className="footer">
           <span className="todo-count">
-            <strong>
               <Count
                 db={db}
-                prefix=""
                 filter={({ value }) => !value.completed}
+                render={count => count === 1
+                  ? <span><strong>{count}</strong> item</span>
+                  : <span><strong>{count}</strong> items</span>}
               />
-            </strong> 
-            {' '}item left
+            {' '}left
             </span>
   				<ul className="filters">
   					<li>

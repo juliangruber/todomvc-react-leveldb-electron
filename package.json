@@ -14,7 +14,7 @@
     "level": "^2.0.0",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
-    "react-level-count": "^1.1.0",
+    "react-level-count": "^1.2.3",
     "react-level-list": "^1.0.1",
     "todomvc-app-css": "^2.1.0",
     "todomvc-common": "^1.0.4",
