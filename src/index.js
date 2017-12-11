@@ -118,6 +118,7 @@ class App extends React.Component {
                     className="edit"
                     defaultValue={value.text}
                     onBlur={ev => this.onStopEdit({ key, value, text: ev.target.value })}
+                    onKeyPress={ev => ev.key === 'Enter' && this.onStopEdit({ key, value, text: ev.target.value })}
                     ref={input => input && input.focus()}
                   />
                 </li>
