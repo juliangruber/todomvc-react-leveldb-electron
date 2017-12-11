@@ -45,6 +45,18 @@ class App extends React.Component {
     db.put(key, value)
   }
 
+  onToggleAll () {
+    const items = []
+    db.createReadStream()
+    .on('data', item => items.push(item))
+    .on('end', () => {
+      const allCompleted = items.every(({ value }) => value.completed)
+      for (const item of items) {
+        db.put(item.key, Object.assign(item.value, { completed: !allCompleted }))
+      }
+    })
+  }
+
   onClearCompleted () {
     db.createReadStream()
     .on('data', ({ key, value }) => {
@@ -64,7 +76,12 @@ class App extends React.Component {
         </header>
         <section className="main">
           <input id="toggle-all" className="toggle-all" type="checkbox" />
-          <label htmlFor="toggle-all">Mark all as complete</label>
+          <label
+            htmlFor="toggle-all"
+            onClick={() => this.onToggleAll()}
+          >
+            Mark all as complete
+          </label>
           <ul className="todo-list">
             <List
               key={this.state.filter.toString()}
