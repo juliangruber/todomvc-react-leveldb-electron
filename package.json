@@ -7,7 +7,7 @@
   "repository": "juliangruber/todomvc-react-leveldb-electron",
   "scripts": {
     "start": "electron-quick static/index.html",
-    "rebuild": "npm rebuild --runtime=electron --target=$(electron --version) --abi=$(electron --abi) --disturl=\"https://atom.io/download/atom-shell\"",
+    "rebuild": "electron-rebuild",
     "watch": "webpack --watch"
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
-    "electron-quick": "^1.3.0"
+    "electron-quick": "^1.3.0",
+    "electron-rebuild": "^1.6.0"
   }
 }
