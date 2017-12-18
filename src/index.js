@@ -1,78 +1,78 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
-import level from 'level'
-import {List} from 'react-level-list'
-import {Count} from 'react-level-count'
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import level from 'level';
+import {List} from 'react-level-list';
+import {Count} from 'react-level-count';
 
-const db = level('db', { valueEncoding: 'json' })
+const db = level('db', { valueEncoding: 'json' });
 
 class App extends Component {
 	constructor () {
-		super()
+		super();
 
 		this.state = {
 			filter: this.showAll,
 			edit: null
-		}
+		};
 	}
 
 	showAll () {
-		return true
+		return true;
 	}
 
 	showActive ({ value }) {
-		return !value.completed
+		return !value.completed;
 	}
 
 	showCompleted ({ value }) {
-		return value.completed
+		return value.completed;
 	}
 
 	onSubmit (ev) {
-		ev.preventDefault()
+		ev.preventDefault();
 		db.put(`${Date.now()}${Math.random()}`, {
 			completed: false,
 			text: this.refs.add.value
-		})
-		this.refs.add.value = ''
+		});
+		this.refs.add.value = '';
 	}
 
 	onDelete (key) {
-		db.del(key)
+		db.del(key);
 	}
 
 	onToggle (key, value) {
-		value.completed = !value.completed
-		db.put(key, value)
+		value.completed = !value.completed;
+		db.put(key, value);
 	}
 
 	onToggleAll () {
-		const items = []
+		const items = [];
 		db.createReadStream()
 		.on('data', item => items.push(item))
 		.on('end', () => {
-			const allCompleted = items.every(({ value }) => value.completed)
+			const allCompleted = items.every(({ value }) => value.completed);
 			for (const item of items) {
-				db.put(item.key, Object.assign(item.value, { completed: !allCompleted }))
+				db.put(item.key, Object.assign(item.value, { completed: !allCompleted }));
 			}
-		})
+		});
 	}
 
 	onClearCompleted () {
 		db.createReadStream()
 		.on('data', ({ key, value }) => {
-			if (value.completed) db.del(key)
-		})
+			if (value.completed) db.del(key);
+		});
 	}
 
 	onStartEdit (key) {
-		this.setState({ edit: key })
+		this.setState({ edit: key });
 	}
 
 	onStopEdit ({ key, value, text }) {
 		db.put(key, Object.assign(value, { text }), () => {
-			this.setState({ edit: null })
-		})
+			this.setState({ edit: null });
+		});
 	}
 
 	render () {
@@ -174,4 +174,4 @@ class App extends Component {
 	}
 }
 
-ReactDOM.render(<App />, document.querySelector('section.todoapp'))
+ReactDOM.render(<App />, document.querySelector('section.todoapp'));
