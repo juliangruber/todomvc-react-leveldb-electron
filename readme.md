@@ -8,7 +8,7 @@ Implementation of the popular [TodoMVC](http://todomvc.com/) project using the t
 
 This is a very short implementation - possibly the shortest - consisting of only 177 lines of JavaScript.
 
-[Check out the source!](src/index.js)
+[Check out the source!](js/index.js)
 
 ## Screenshot
 
