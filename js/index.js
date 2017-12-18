@@ -49,9 +49,7 @@ class App extends Component {
 	}
 
 	onToggleAll (completed) {
-		const items = [];
-		db.createReadStream()
-		.on('data', item => db.put(item.key, Object.assign(item.value, { completed })));
+		db.createReadStream().on('data', item => db.put(item.key, Object.assign(item.value, { completed })));
 	}
 
 	onClearCompleted () {
