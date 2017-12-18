@@ -133,10 +133,16 @@ class App extends Component {
 						? (
 							<footer className="footer">
 								<span className="todo-count">
-									<span>
-										<strong>{count}</strong>
-										{count === 1 ? ' item' : ' items'}
-									</span>
+									<Count
+										db={db}
+										filter={({ value }) => value.completed}
+										render={count => (
+											<span>
+												<strong>{count}</strong>
+												{count === 1 ? ' item' : ' items'}
+											</span>
+										)}
+									/>
 									{' '}left
 								</span>
 								<ul className="filters">
