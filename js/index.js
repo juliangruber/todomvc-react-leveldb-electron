@@ -48,16 +48,10 @@ class App extends Component {
 		db.put(key, value);
 	}
 
-	onToggleAll () {
+	onToggleAll (completed) {
 		const items = [];
 		db.createReadStream()
-		.on('data', item => items.push(item))
-		.on('end', () => {
-			const allCompleted = items.every(({ value }) => value.completed);
-			for (const item of items) {
-				db.put(item.key, Object.assign(item.value, { completed: !allCompleted }));
-			}
-		});
+		.on('data', item => db.put(item.key, Object.assign(item.value, { completed })));
 	}
 
 	onClearCompleted () {
@@ -88,7 +82,7 @@ class App extends Component {
 					</form>
 				</header>
 				<section className="main">
-					<input id="toggle-all" className="toggle-all" type="checkbox" onChange={() => this.onToggleAll()} />
+					<input id="toggle-all" className="toggle-all" type="checkbox" onChange={ev => this.onToggleAll(ev.target.checked)} />
 					<label htmlFor="toggle-all">
 						Mark all as complete
 					</label>
