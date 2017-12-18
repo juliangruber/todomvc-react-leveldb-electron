@@ -127,50 +127,52 @@ class App extends Component {
 						/>
 					</ul>
 				</section>
-				<footer className="footer">
-					<span className="todo-count">
-						<Count
-							db={db}
-							filter={({ value }) => !value.completed}
-							render={count =>
-								<span>
-									<strong>{count}</strong>
-									{count === 1 ? ' item' : ' items'}
-								</span>}
-						/>
-						{' '}left
-					</span>
-					<ul className="filters">
-						<li>
-							<a
-								className={this.state.filter === this.showAll ? 'selected' : undefined}
-								href="#/"
-								onClick={() => this.setState({ filter: this.showAll })}
-							>All</a>
-						</li>
-						<li>
-							<a
-								className={this.state.filter === this.showActive ? 'selected' : undefined}
-								href="#/active"
-								onClick={() => this.setState({ filter: this.showActive })}
-							>Active</a>
-						</li>
-						<li>
-							<a
-								className={this.state.filter === this.showCompleted ? 'selected' : undefined}
-								href="#/completed"
-								onClick={() => this.setState({ filter: this.showCompleted })}
-							>Completed</a>
-						</li>
-					</ul>
-					<Count
-						db={db}
-						filter={({ value }) => value.completed}
-						render={count => count > 0
-							? <button className="clear-completed" onClick={() => this.onClearCompleted()}>Clear completed</button>
-							: null}
-					/>
-				</footer>
+				<Count
+					db={db}
+					render={count => count > 0
+						? (
+							<footer className="footer">
+								<span className="todo-count">
+									<span>
+										<strong>{count}</strong>
+										{count === 1 ? ' item' : ' items'}
+									</span>
+									{' '}left
+								</span>
+								<ul className="filters">
+									<li>
+										<a
+											className={this.state.filter === this.showAll ? 'selected' : undefined}
+											href="#/"
+											onClick={() => this.setState({ filter: this.showAll })}
+										>All</a>
+									</li>
+									<li>
+										<a
+											className={this.state.filter === this.showActive ? 'selected' : undefined}
+											href="#/active"
+											onClick={() => this.setState({ filter: this.showActive })}
+										>Active</a>
+									</li>
+									<li>
+										<a
+											className={this.state.filter === this.showCompleted ? 'selected' : undefined}
+											href="#/completed"
+											onClick={() => this.setState({ filter: this.showCompleted })}
+										>Completed</a>
+									</li>
+								</ul>
+								<Count
+									db={db}
+									filter={({ value }) => value.completed}
+									render={count => count > 0
+										? <button className="clear-completed" onClick={() => this.onClearCompleted()}>Clear completed</button>
+										: null}
+								/>
+							</footer>
+						)
+						: null}
+				/>
 			</section>
 		);
 	}
