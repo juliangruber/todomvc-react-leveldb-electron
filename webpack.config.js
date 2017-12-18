@@ -1,5 +1,5 @@
 module.exports = {
-	entry: './src/index.js',
+	entry: './js/index.js',
 	target: 'electron',
 	output: {
 		filename: 'static/build.js',
