@@ -34,7 +34,7 @@ class App extends Component {
 		ev.preventDefault();
 		db.put(`${Date.now()}${Math.random()}`, {
 			completed: false,
-			text: this.refs.add.value
+			text: this.refs.add.value.trim()
 		});
 		this.refs.add.value = '';
 	}
