@@ -1,6 +1,6 @@
 'use strict';
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import level from 'level';
 import {List} from 'react-level-list';
@@ -172,7 +172,7 @@ class App extends Component {
 					/>
 				</footer>
 			</section>
-		)
+		);
 	}
 }
 
